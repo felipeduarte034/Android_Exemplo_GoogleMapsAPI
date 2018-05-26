@@ -1,13 +1,7 @@
 package com.example.felipeduarteacer.googlemapsapi;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,16 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -37,24 +26,21 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, LocationListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private EditText etTextoLugar;
     private Button btSearch;
-    private GoogleApiClient client;
-    private LocationRequest request;
     private Marker mMarker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.map_layout);
+        setContentView(R.layout.activity_maps);
         etTextoLugar = findViewById(R.id.etTextoLugarID_MapLayout);
         btSearch = findViewById(R.id.btSearchID_MapLayout);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapID);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMapsID_Maps);
         mapFragment.getMapAsync(this);
 
         btSearch.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +66,39 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if (mMap != null)
         {
+            // Movimentar o marcador
+            mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+                @Override
+                public void onMarkerDragStart(Marker marker) {
+                    Toast.makeText(getApplicationContext(), "Marker Drag START", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onMarkerDrag(Marker marker) {
+
+                }
+
+                @Override
+                public void onMarkerDragEnd(Marker marker) {
+                    Toast.makeText(getApplicationContext(), "Marker Drag END", Toast.LENGTH_SHORT).show();
+                    Geocoder geocoder = new Geocoder(getApplicationContext());
+                    List<Address> list = null;
+                    try
+                    {
+                        LatLng ll = marker.getPosition();
+                        list = geocoder.getFromLocation(ll.latitude, ll.longitude, 1);
+                        Address address = list.get(0);
+                        marker.setTitle(address.getLocality());
+                        marker.showInfoWindow();
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            // Painel de informadoçõs do lugar marcado
             mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                 @Override
                 public View getInfoWindow(Marker marker) {
@@ -89,7 +108,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 @Override
                 public View getInfoContents(Marker marker) {
 
-                    View view = getLayoutInflater().inflate(R.layout.custom_address, null);
+                    View view = getLayoutInflater().inflate(R.layout.item_custom_address, null);
                     TextView tvLocality = view.findViewById(R.id.tvLocalityID_ca);
                     TextView tvLat = view.findViewById(R.id.tvLatitudeID_ca);
                     TextView tvLon = view.findViewById(R.id.tvLongitudeID_ca);
@@ -103,58 +122,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     return view;
                 }
             });
-        }
-
-        client = new GoogleApiClient.Builder(this)
-                .addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .build();
-
-        client.connect();
-
-        // Add a marker in Sydney and move the camera
-        //LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        request = new LocationRequest().create();
-        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        request.setInterval(60*1000);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        else
-            Toast.makeText(getApplicationContext(), "necessario a permissao", Toast.LENGTH_SHORT).show();
-        LocationServices.FusedLocationApi.requestLocationUpdates(client, request, this);
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        if (location == null)
-        {
-            Toast.makeText(getApplicationContext(), "location could not be found!", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(latLng).title("Local Atual"));
-            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latLng, 15);
-            mMap.animateCamera(update);
         }
     }
 
@@ -199,7 +166,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         marker.title("SUCESSO + CAFE");
         marker.position(latLng);
         //marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)); //trocar cor do icone
-        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.seta));
+        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.seta)); //alterar a imagem do icone
         marker.draggable(true); //arratavel
         marker.snippet("texto snippet aqui!!!");
         mMarker = mMap.addMarker(marker);
@@ -232,7 +199,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 GoToLocation(lat,lon,15);
             }
             else
+            {
                 Log.d("CAFE","myListAnddress zero");
+                Toast.makeText(getApplicationContext(), "Lugar não encontrado", Toast.LENGTH_LONG).show();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
