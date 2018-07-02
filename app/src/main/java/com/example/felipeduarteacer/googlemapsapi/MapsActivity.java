@@ -166,7 +166,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         marker.title("SUCESSO + CAFE");
         marker.position(latLng);
         //marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)); //trocar cor do icone
-        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.seta)); //alterar a imagem do icone
+        marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marcador)); //alterar a imagem do icone
         marker.draggable(true); //arratavel
         marker.snippet("texto snippet aqui!!!");
         mMarker = mMap.addMarker(marker);
@@ -203,7 +203,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Log.d("CAFE","myListAnddress zero");
                 Toast.makeText(getApplicationContext(), "Lugar não encontrado", Toast.LENGTH_LONG).show();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }

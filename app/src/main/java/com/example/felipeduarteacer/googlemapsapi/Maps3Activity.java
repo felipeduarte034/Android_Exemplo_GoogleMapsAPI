@@ -27,8 +27,8 @@ public class Maps3Activity extends AppCompatActivity implements OnStreetViewPano
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps3);
         etPlaceName = findViewById(R.id.etPlaceNameID_Maps3);
-        lat = getIntent().getExtras().getString("latitude");
-        lon = getIntent().getExtras().getString("longitude");
+        //lat = getIntent().getExtras().getString("latitude");
+        //lon = getIntent().getExtras().getString("longitude");
 
         StreetViewPanoramaFragment streetViewPanoramaFragment = (StreetViewPanoramaFragment) getFragmentManager()
                 .findFragmentById(R.id.fragmentMap3ID_Maps3);
@@ -72,7 +72,8 @@ public class Maps3Activity extends AppCompatActivity implements OnStreetViewPano
     @Override
     public void onStreetViewPanoramaReady(StreetViewPanorama streetViewPanorama) {
         panorama = streetViewPanorama;
-        latLngCurrent = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+        //latLngCurrent = new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+        latLngCurrent = new LatLng(0.0000, 0.0000);
         streetViewPanorama.setPosition(latLngCurrent);
     }
 }

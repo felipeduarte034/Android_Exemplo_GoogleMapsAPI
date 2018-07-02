@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         Button btEndereco = findViewById(R.id.btEnderecoID_MainAct);
         Button btLocAtual = findViewById(R.id.btLocAtualID_MainAct);
         Button btStreetView = findViewById(R.id.btStreetViewID_MainAct);
+        Button btLocPer = findViewById(R.id.btLocPerID_MainAct);
 
         btEndereco.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,7 +34,14 @@ public class MainActivity extends AppCompatActivity {
         btStreetView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(), Maps3Activity.class));
+                startActivity(new Intent(getApplicationContext(), Maps3Activity.class));
+            }
+        });
+
+        btLocPer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LocationActivity.class));
             }
         });
     }
