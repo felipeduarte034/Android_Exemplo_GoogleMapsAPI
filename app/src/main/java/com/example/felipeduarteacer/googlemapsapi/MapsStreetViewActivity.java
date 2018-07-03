@@ -15,7 +15,7 @@ import com.google.android.gms.maps.StreetViewPanorama;
 import com.google.android.gms.maps.StreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.LatLng;
 
-public class Maps3Activity extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
+public class MapsStreetViewActivity extends AppCompatActivity implements OnStreetViewPanoramaReadyCallback {
 
     private StreetViewPanorama panorama;
     private LatLng latLngCurrent, latLngEnd;
@@ -39,7 +39,7 @@ public class Maps3Activity extends AppCompatActivity implements OnStreetViewPano
             public void onClick(View v) {
                 try
                 {
-                    Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).build(Maps3Activity.this);
+                    Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY).build(MapsStreetViewActivity.this);
                     startActivityForResult(intent, 200);
                 }
                 catch (GooglePlayServicesNotAvailableException e)

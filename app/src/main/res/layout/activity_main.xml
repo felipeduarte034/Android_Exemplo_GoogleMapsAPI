@@ -14,9 +14,10 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="endereço"
+        android:text="buscar endereço"
         app:layout_constraintBottom_toTopOf="@+id/btLocAtualID_MainAct"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,9 +29,10 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="localização atual"
+        android:text="localização atual (GPS)"
         app:layout_constraintBottom_toTopOf="@+id/btStreetViewID_MainAct"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btEnderecoID_MainAct" />
 
@@ -45,6 +47,7 @@
         android:text="street view"
         app:layout_constraintBottom_toTopOf="@+id/btLocPerID_MainAct"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btLocAtualID_MainAct" />
 
@@ -57,8 +60,23 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:text="location permission"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btCoordAdrID_MainAct"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btStreetViewID_MainAct" />
+
+    <Button
+        android:id="@+id/btCoordAdrID_MainAct"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="coordenadas para endereço"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btLocPerID_MainAct" />
 </android.support.constraint.ConstraintLayout>

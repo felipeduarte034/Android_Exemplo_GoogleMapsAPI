@@ -39,10 +39,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MapsActivity" />
-        <activity android:name=".Maps2Activity" />
-        <activity android:name=".Maps3Activity" />
-        <activity android:name=".LocationActivity"></activity>
+        <activity android:name=".MapsAddressForCoodinatesActivity" />
+        <activity android:name=".MapsCurrentLocationGPSActivity" />
+        <activity android:name=".MapsStreetViewActivity" />
+        <activity android:name=".RequestPermissionActivity" />
+        <activity android:name=".CoordinatesForAddressActivity"></activity>
     </application>
 
 </manifest>

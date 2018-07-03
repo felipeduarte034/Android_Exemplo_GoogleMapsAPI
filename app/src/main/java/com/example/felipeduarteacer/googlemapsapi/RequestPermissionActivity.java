@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-public class LocationActivity extends AppCompatActivity {
+public class RequestPermissionActivity extends AppCompatActivity {
 
     private final int PERMISSION_CODE = 100;
 
@@ -74,7 +74,7 @@ public class LocationActivity extends AppCompatActivity {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                     Toast.makeText(getApplicationContext(),"Permita o acesso a localização do dispositivo clicando em ALLOW!",Toast.LENGTH_LONG).show();
-                    //startActivity(new Intent(getApplicationContext(), LocationActivity.class));
+                    //startActivity(new Intent(getApplicationContext(), RequestPermissionActivity.class));
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     finish();
                 }

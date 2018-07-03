@@ -26,7 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapsAddressForCoodinatesActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private EditText etTextoLugar;
@@ -179,10 +179,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         Geocoder geocoder = new Geocoder(this);
         try
         {
-            List<Address> myListAnddress = geocoder.getFromLocationName(etTextoLugar.getText().toString(), 1);
-            if (myListAnddress.size() > 0)
+            List<Address> myListAddress = geocoder.getFromLocationName(etTextoLugar.getText().toString(), 1);
+            if (myListAddress.size() > 0)
             {
-                Address address = myListAnddress.get(0);
+                Address address = myListAddress.get(0);
                 String locality = address.getLocality();
                 String country = address.getCountryName();
                 String subLocality = address.getSubLocality();

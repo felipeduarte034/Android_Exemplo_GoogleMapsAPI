@@ -16,32 +16,40 @@ public class MainActivity extends AppCompatActivity {
         Button btLocAtual = findViewById(R.id.btLocAtualID_MainAct);
         Button btStreetView = findViewById(R.id.btStreetViewID_MainAct);
         Button btLocPer = findViewById(R.id.btLocPerID_MainAct);
+        Button btCoodAdr = findViewById(R.id.btCoordAdrID_MainAct);
 
         btEndereco.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MapsActivity.class));
+                startActivity(new Intent(getApplicationContext(), MapsAddressForCoodinatesActivity.class));
             }
         });
 
         btLocAtual.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Maps2Activity.class));
+                startActivity(new Intent(getApplicationContext(), MapsCurrentLocationGPSActivity.class));
             }
         });
 
         btStreetView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Maps3Activity.class));
+                startActivity(new Intent(getApplicationContext(), MapsStreetViewActivity.class));
             }
         });
 
         btLocPer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), LocationActivity.class));
+                startActivity(new Intent(getApplicationContext(), RequestPermissionActivity.class));
+            }
+        });
+
+        btCoodAdr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), CoordinatesForAddressActivity.class));
             }
         });
     }
